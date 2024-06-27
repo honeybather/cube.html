@@ -71,6 +71,11 @@ function handleCorrectGuess(letter) {
 function handleWrongGuess() {
   numWrong += 1;
   doument.querySelector('#shark.img').setAttribute('src' `/static/images/guess${numWrong}.png`); 
+
+  if (numWrong == 5){
+    disableAllLetterButton();
+    document.querySelector('#play-again')
+  }
 }
 
 // Reset game state. Called before restarting the game.
