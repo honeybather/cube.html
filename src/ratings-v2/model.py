@@ -2,6 +2,7 @@
 
 from flask_sqlalchemy import SQLAlchemy
 
+
 db = SQLAlchemy()
 
 
@@ -24,29 +25,36 @@ class Movie(db.Model):
 
     __tablename__ = "movies"
 
-    movie_id = db.Column(db.Integer, autoincrementing=True, primary_key = True)
+    movie_id = db.Column(db.Integer, autoincrement=True, primary_key = True)
     title = db.Column(db.String)
     overview = db.Column(db.Text)
     release_date = db.Column(db.DateTime)
     poster_path = db.Column(db.String)
     
+    
     ratings = db.relationship("Rating", back_populates="movie")
+
+    #apples = db.relationship("Rating", back_populates="film")
+
 
     def __repr__(self):
         return f'<Movie movie_id={self.movie_id} title={self.title}>'
     
 class Rating(db.Model):
-    "ratings"
+    """A rating"""
 
     __tablename__ = "ratings"
 
-    rating_id = db.Column(db.Integer, autoincrementing=True, primary_key = True)
+    rating_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
     score = db.Column(db.Integer)
     movie_id = db.Column(db.Integer, db.ForeignKey("movies.movie_id"))
     user_id = db.Column(db.Integer, db.ForeignKey("users.user_id"))
 
     movie = db.relationship("Movie", back_populates="ratings")
     user = db.relationship("User", back_populates="ratings")
+    
+    #film = db.relationship("Movie", back_populates="apples")
+
 
     def __repr__(self):
         return f'<Rating rating_id={self.rating_id} score={self.score}>'
@@ -60,7 +68,7 @@ def connect_to_db(flask_app, db_uri="postgresql:///ratings", echo=True):
 
     db.app = flask_app
     db.init_app(flask_app)
-
+ 
     print("Connected to the db!")
 
 
