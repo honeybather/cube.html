@@ -18,6 +18,8 @@ class PartyTests(unittest.TestCase):
     def test_no_rsvp_yet(self):
         # FIXME: Add a test to show we see the RSVP form, but NOT the
         # party details
+        result = self.client.get("/")
+        
         print("FIXME")
 
     def test_rsvp(self):
